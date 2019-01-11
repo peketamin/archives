@@ -1,0 +1,62 @@
+{{define "title"}}{{.Page.Title|maketitle}}{{end}}
+
+{{define "head"}}
+    {{if eq .Endpoint "root"}}
+    <meta http-equiv="refresh" content="{{.DisplayDuration}};URL=.">
+
+    <script>
+        // http://stackoverflow.com/questions/12050268/angularjs-make-a-simple-countdown#
+        function CountDown($scope,$timeout) {
+            $scope.counter = {{.DisplayDuration}};
+            $scope.onTimeout = function(){
+                $scope.counter--
+                $scope.gauge = {width: ($scope.counter / {{.DisplayDuration}}) * 100 + '%'}
+                mytimeout = $timeout($scope.onTimeout,1000);
+            }
+            var mytimeout = $timeout($scope.onTimeout,1000);
+
+            $scope.stop = function(){
+                $timeout.cancel(mytimeout);
+            }
+        }
+    </script>
+    {{end}}
+{{end}}
+
+{{ define "body"}}
+<style>
+    .gauge {
+        background: lightsteelblue;
+    }
+    .remain-sec {
+        color: #782fff;
+    }
+</style>
+
+{{if eq .Endpoint "root"}}
+<div ng-controller="CountDown">
+    <div class=gauge ng-style="gauge">This page reload after <span class="remain-sec">{{"{{counter}}"}}</span> sec.</div>
+    <!--button ng-click="stop()">Stop</button-->
+</div>
+{{end}}
+
+<h1>{{.Page.Title}}</h1>
+
+<article>{{.Page.Body|markdowning|safehtml}}</article>
+
+{{if .Page.ImageId.Value}}
+<img src="/image/{{.Page.Id}}" alt="Image preview">
+{{end}}
+
+<aside>
+    <div>
+        {{.Page.Note|markdowning|safehtml}}
+    </div>
+    <div>
+        {{.Page.Source|markdowning|safehtml}}
+    </div>
+</aside>
+<aside>
+    <a class="pure-button" href="/edit/{{.Page.Id}}"><i class="fa fa-edit"></i> Edit [{{.Page.Id}}]</a>
+</aside>
+{{end }}

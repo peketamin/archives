@@ -1,0 +1,102 @@
+{{define "title"}}{{.Page.Title|maketitle}}{{end}}
+
+{{define "head"}}{{end}}
+
+{{define "body"}}
+<h1>Editing {{.Page.Title}}</h1>
+
+<a target="_blank" class="pure-button" href="/{{.Page.Id}}">View</a>
+
+<form class="pure-form pure-form-stacked" action="/save/{{.Page.Id}}" method="POST" enctype="multipart/form-data">
+    <label>
+        Title
+        <input type=text name=title value={{.Page.Title}}>
+    </label>
+    <label>
+        Body
+        <textarea name="body" rows="10" cols="80">{{printf "%s" .Page.Body}}</textarea>
+    </label>
+    <label>
+        Note
+        <textarea name="note" rows="10" cols="80">{{printf "%s" .Page.Note}}</textarea>
+    </label>
+    <label>
+        Source address
+        <input type=text name="source" value={{.Page.Source}}>
+    </label>
+
+    <label class="">
+        Image upload
+        <input type=file name="image" value=0>
+    </label>
+
+    {{if .Page.ImageId.Value}}
+    Image preview
+    <img src="/image/{{.Page.Id}}">
+
+    <label for="">
+        <input type=checkbox name=delete-image value=1>
+        削除
+    </label>
+    {{end}}
+
+    {{/*}}
+    {{if .Page.mark}}
+    <label class="pure-radio">
+        <input type=radio name="currentdisplaymark" value=1 checked=checked>
+
+        Viewed
+    </label>
+    <label class="pure-radio">
+        <input type=radio name="currentdisplaymark" value=0>
+
+        Not viewed
+    </label>
+    {{else}}
+    <label class="pure-radio">
+        <input type=radio name="currentdisplaymark" value=1>
+
+        Viewed
+    </label>
+    <label class="pure-radio">
+        <input type=radio name="currentdisplaymark" value=0 checked=checked>
+
+        Not viewed
+    </label>
+    {{end}}
+    {{*/}}
+
+    <!-- see: [Buttons – Pure](http://purecss.io/buttons/) -->
+    <style scoped>
+
+        .button-success,
+        .button-error,
+        .button-warning,
+        .button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-success {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+
+        .button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+        .button-warning {
+            background: rgb(223, 117, 20); /* this is an orange */
+        }
+
+        .button-secondary {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+
+    </style>
+    <input class="pure-button pure-button-primary" type="submit" value="Save">
+    <input class="pure-button button-error" type="submit" value="Delete">
+    <a target="_blank" class="pure-button" href="/{{.Page.Id}}">View</a>
+</form>
+{{end}}

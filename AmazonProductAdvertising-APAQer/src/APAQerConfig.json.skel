@@ -1,0 +1,15 @@
+{
+    "AWSAccessKeyId": "xxxxxxxxxxxxxxxxxxxx",
+    "AWSSecretKeyId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "AssociateTag": "xxxxxxxxxxxx",
+
+    "Operation": "ItemSearch",
+    "ResponseGroup": "Large,Images",
+    "SearchIndex": "Books",
+    "Sort": "salesrank",
+    "Power": "language:English",
+    "BrowseNode": "Kindole本 as a default",
+    "BrowseNode": "2250738051",
+    "MaximumPrice": "500",
+    "Condition": "New"
+}
